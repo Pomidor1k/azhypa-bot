@@ -1,0 +1,20 @@
+{
+  "sessions": [
+    {
+      "id": "689818355:689818355",
+      "data": {
+        "userName": "hulio_zas",
+        "timeOut1": true,
+        "timeOut2": true,
+        "timeOut3": true,
+        "timeOut4": true,
+        "timeOut5": true,
+        "timeOut6": true,
+        "timeOut7": true,
+        "timeOut8": true,
+        "timeOut9": true,
+        "userRate": "basic"
+      }
+    }
+  ]
+}
