@@ -5,7 +5,7 @@ const keyboards = require('./keyboards')
 const mainDb = require('./dataBases/firebase')
 const functions = require('./functions');
 
-const webAppUrl = "https://8384-46-216-152-33.ngrok-free.app"
+const webAppUrl = "https://startling-dango-99858e.netlify.app"
 
 
 const bot = new Telegraf('6664007271:AAGIYnU3pxOwTXgzuNylrqZRWRWw6dl39Ao')
@@ -28,9 +28,9 @@ const videoLinks = {
     "video3-pro": `${webAppUrl}/fnIHBIbihbd2h`
 }
 
-const TenMinTimer = 15000 //!поменять на 10 мин
-const upgradeTimeout = 20000 //!поменять на 23 часа
-const deleteUpgradeTimeout = 20000 //!поменять на один час
+const TenMinTimer = 600000 //!поменять на 10 мин
+const upgradeTimeout = 82800000 //!поменять на 23 часа
+const deleteUpgradeTimeout = 3600000 //!поменять на один час
 
 
 
