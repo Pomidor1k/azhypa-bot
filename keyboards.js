@@ -1,6 +1,6 @@
 const { Markup } = require('telegraf')
 
-const webAppUrl = 'https://startling-dango-99858e.netlify.app'
+const webAppUrl = 'https://azhypa-web.onrender.com'
 
 const welcomeMessageKeyboard = Markup.inlineKeyboard([
     [Markup.button.callback('Научиться за 58 минут🚀', 'welcomeMessage-prePaymentVideoAdvMessage')]

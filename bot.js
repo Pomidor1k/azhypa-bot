@@ -5,7 +5,7 @@ const keyboards = require('./keyboards')
 const mainDb = require('./dataBases/firebase')
 const functions = require('./functions');
 
-const webAppUrl = "https://startling-dango-99858e.netlify.app"
+const webAppUrl = "https://azhypa-web.onrender.com"
 
 
 const bot = new Telegraf('6664007271:AAGIYnU3pxOwTXgzuNylrqZRWRWw6dl39Ao')
