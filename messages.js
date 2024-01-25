@@ -23,7 +23,7 @@ const authorInfoWithoutPicMessage = {
 }
 
 const needHelpChoosingRateMessage = {
-    "ru": "Нужна помощь в выборе тарифов❓\n\nНапиши мне в лс @azhypa"
+    "ru": "Нужна помощь в выборе тарифов❓\n\nНапиши мне в лс @azhypa\n\nИли можешь зайти на лендинг и посмотреть мои работы\nhttps://azhypa.com/mediacenter/main/portfolio"
 }
 
 const paymentLinkMessage = {
@@ -31,11 +31,11 @@ const paymentLinkMessage = {
 }
 
 const paymentIssuesMessage = {
-    "ru": "Хеллоу. Ты планировал учиться создавать дорогой, вовлекающий визуал, помнишь❓\n\nОпять отложил до лучших времен❓\n\nИли возможно, дело в другом❓ Может, ты меня мало знаешь или вообще не знаешь❓\n\nПоделись"
+    "ru": "Хеллоу. Ты планировал учиться создавать дорогой, вовлекающий визуал, помнишь❓\n\nОпять отложил до лучших времен❓\n\nИли возможно, дело в другом❓ Может, ты меня мало знаешь или вообще не знаешь❓\n\nПоделись\n\nЕсли хоешь, можешь зайти на лендинг и взглянуть на мои работы\nhttps://azhypa.com/mediacenter/main/portfolio"
 }
 
 const needHelpMessage = {
-    "ru": "Пиши мне сразу в личку если че❗️ \n\n@azhypa"
+    "ru": "Пиши мне сразу в личку если че❗️ \n\n@azhypa\n\nТакже можешь зацти на мой лендинг, чтобы ознакомиться с моими работами\nhttps://azhypa.com/mediacenter/main/portfolio"
 }
 
 const noPaymentFinalMessage = {
