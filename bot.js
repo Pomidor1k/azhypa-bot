@@ -8,6 +8,7 @@ const functions = require('./functions');
 const webAppUrl = "https://azhypa-web.onrender.com"
 
 
+
 const bot = new Telegraf('6664007271:AAGIYnU3pxOwTXgzuNylrqZRWRWw6dl39Ao')
 const localSession = new LocalSession({database: 'session_db.json'})
 bot.use(localSession.middleware())
@@ -281,7 +282,7 @@ bot.on("web_app_data", async ctx => {
         ctx.session.timeOut4 = false
 
         const paymentLinkMessageKeyboard = Markup.keyboard([
-            [Markup.button.webApp("Проверить оплату💸", `${webAppUrl}/check_primary_payment?userId=${userId}`)],
+            [Markup.button.webApp("Получить доступ🔑", `${webAppUrl}/check_primary_payment?userId=${userId}`)],
             ['Задать вопрос❓']
         ]).resize().oneTime();
 
@@ -305,7 +306,7 @@ bot.on("web_app_data", async ctx => {
         const paymentIssuesMessageKeyboard = Markup.keyboard([
             ['ТЫ КТО чтоб так базарить?😡'],
             ['Не в этом дело🙃'],
-            [Markup.button.webApp("Проверить оплату💸", `${webAppUrl}/check_primary_payment?userId=${userId}`)]
+            [Markup.button.webApp("Получить доступ🔑", `${webAppUrl}/check_primary_payment?userId=${userId}`)]
         ]).resize().oneTime();
         setTimeout(async () => {
             if (ctx.session.timeOut5) {
@@ -648,7 +649,7 @@ bot.hears("Задать вопрос❓", async (ctx) => {
     const userId = ctx.from.id
 
     const paymentLinkMessageKeyboard = Markup.keyboard([
-        [Markup.button.webApp("Проверить оплату💸", `${webAppUrl}/check_primary_payment?userId=${userId}`)],
+        [Markup.button.webApp("Получить доступ🔑", `${webAppUrl}/check_primary_payment?userId=${userId}`)],
         ['Задать вопрос❓']
     ]).resize().oneTime();
 
@@ -664,7 +665,7 @@ bot.hears("ТЫ КТО чтоб так базарить?😡", async (ctx) => {
     const userId = ctx.from.id
 
     const paymentLinkMessageKeyboard = Markup.keyboard([
-        [Markup.button.webApp("Проверить оплату💸", `${webAppUrl}/check_primary_payment?userId=${userId}`)],
+        [Markup.button.webApp("Получить доступ🔑", `${webAppUrl}/check_primary_payment?userId=${userId}`)],
         ['Задать вопрос❓']
     ]).resize().oneTime();
 
@@ -701,7 +702,7 @@ bot.action("authorInfoNoPicMessage-getPaymentLinkMessage", async (ctx) => {
     const userId = ctx.from.id 
     ctx.session.timeOut6 = false
     const paymentLinkMessageKeyboard = Markup.keyboard([
-        [Markup.button.webApp("Проверить оплату💸", `${webAppUrl}/check-primary-payment?userId=${userId}`)],
+        [Markup.button.webApp("Получить доступ🔑", `${webAppUrl}/check-primary-payment?userId=${userId}`)],
         ['Задать вопрос❓']
     ]).resize().oneTime();
 
@@ -753,7 +754,7 @@ bot.action("getFormulaMessage-chatLink", async (ctx) => {
     } else if (ctx.session.userRate === 'advanced') {
 
         const advancedUpgradeOfferKeyboard = Markup.keyboard([
-            [Markup.button.webApp("Проверить оплату💸", `${webAppUrl}/check-adv-pro-payment`)]
+            [Markup.button.webApp("Получить доступ🔑", `${webAppUrl}/check-adv-pro-payment`)]
         ]).resize().oneTime();
 
         try {
@@ -801,7 +802,7 @@ bot.action("basicUpgradeOfferMessage-basicUpgradeToAdvancedPaymentMessage", asyn
     const userId = ctx.from.id
 
     const basicToAdvancedUpgradeOfferKeyboard = Markup.keyboard([
-        [Markup.button.webApp("Проверить оплату💸", `${webAppUrl}/check-bas-adv-payment`)]
+        [Markup.button.webApp("Получить доступ🔑", `${webAppUrl}/check-bas-adv-payment`)]
     ]).resize().oneTime();
 
     try {
@@ -817,7 +818,7 @@ bot.action("basicUpgradeOfferMessage-basicUpgradeToProPaymentMessage", async (ct
     const userId = ctx.from.id
 
     const basicToProUpgradeOfferKeyboard = Markup.keyboard([
-        [Markup.button.webApp("Проверить оплату💸", `${webAppUrl}/check-bas-pro-payment`)]
+        [Markup.button.webApp("Получить доступ🔑", `${webAppUrl}/check-bas-pro-payment`)]
     ]).resize().oneTime();
 
     try {
