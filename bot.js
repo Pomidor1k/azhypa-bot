@@ -864,16 +864,6 @@ bot.action("basicUpgradeOfferMessage-basicUpgradeToProPaymentMessage", async (ct
 
 
 
-bot.command('message_start', async (ctx) => {
-    ctx.session.canStartMessage = true
-    await ctx.reply("Напишите сообщение для рассылки...")
-})
-
-bot.command('message_stop', async (ctx) => {
-    ctx.session.canStartMessage = false
-})
-
-
 
 
 
