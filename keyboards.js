@@ -2,6 +2,7 @@ const { Markup } = require('telegraf')
 
 const webAppUrl = 'https://azhypa-web.onrender.com'
 
+
 const welcomeMessageKeyboard = Markup.inlineKeyboard([
     [Markup.button.callback('Научиться за 58 минут🚀', 'welcomeMessage-prePaymentVideoAdvMessage')]
 ]);
@@ -37,6 +38,12 @@ const basicUpgradeChooseRateKeyboard = Markup.inlineKeyboard([
     [Markup.button.callback('1️⃣PRO', 'basicUpgradeOfferMessage-basicUpgradeToProPaymentMessage')],
     [Markup.button.callback('2️⃣ADVANCED', 'basicUpgradeOfferMessage-basicUpgradeToAdvancedPaymentMessage')]
 ]);
+
+const bonusLessonKeyboard = Markup.inlineKeyboard([
+    [Markup.button.url('Смотреть видео🖥', `${webAppUrl}/fminiIBUv87bui`)]
+]);
+
+
 
 
 

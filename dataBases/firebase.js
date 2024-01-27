@@ -153,6 +153,30 @@ async function updateUserPersonalAnswersInfo(userId,
     }
 }
 
+async function getAllUsers() {
+    const db = admin.firestore();
+    const usersCollection = db.collection('users');
+  
+    try {
+      const usersSnapshot = await usersCollection.get();
+  
+      if (usersSnapshot.empty) {
+        console.log('No users found.');
+        return [];
+      }
+  
+      const userNames = [];
+      usersSnapshot.forEach(doc => {
+        userNames.push(doc.id);
+      });
+  
+      return userNames;
+    } catch (error) {
+      console.error('Error getting users:', error);
+      throw error;
+    }
+}
+
 
 
 
@@ -164,5 +188,6 @@ module.exports = {
     updateUserParameter,
     updateUserAfterPaymentInfo,
     updateUserTests,
-    updateUserPersonalAnswersInfo
+    updateUserPersonalAnswersInfo,
+    getAllUsers
 }

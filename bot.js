@@ -23,11 +23,6 @@ const paymentLinks = {
     "basic-pro": "https://mel.store/azhypa/27010"
 }
 
-const videoLinks = {
-    "video3-bas": `${webAppUrl}/fnnIUGH7hu`,
-    "video3-adv": `${webAppUrl}/xnibiobIBbi`,
-    "video3-pro": `${webAppUrl}/fnIHBIbihbd2h`
-}
 
 const TenMinTimer = 600000 //!поменять на 10 мин
 const upgradeTimeout = 82800000 //!поменять на 23 часа
@@ -38,7 +33,6 @@ const deleteUpgradeTimeout = 3600000 //!поменять на один час
 bot.start(async (ctx) => {
     const userId = ctx.from.id
     const userName = ctx.from.username ? ctx.from.username : 'none'
-
     const currentTime = await functions.getCurrentTime()
 
 
@@ -52,6 +46,7 @@ bot.start(async (ctx) => {
     ctx.session.timeOut7 = true
     ctx.session.timeOut8 = true
     ctx.session.timeOut9 = true
+    ctx.session.canStartMessage = false
 
 
     try {
@@ -120,12 +115,14 @@ bot.start(async (ctx) => {
 
 
 const ignoreEvents = ['photo', 'video', 'voice', 'document'];
-const customIgnoreEvents = ['Задать вопрос❓', 'ТЫ КТО чтоб так базарить?😡', 'Не в этом дело🙃']; // Замените на свой собственный массив событий
 
-
-bot.on(ignoreEvents, (ctx, next) => {
+bot.on(ignoreEvents, async (ctx, next) => {
     
 });
+
+
+
+
 
 
 
@@ -236,7 +233,6 @@ bot.action("prePaymentVideoAdvMessage-authorInfoWithPicMessage", async (ctx) => 
 
 bot.action(["prePaymentVideoAdvMessage-ratesDescriptionWithVideoMessage", "authorInfoWithoutPicMessage-ratesDescriptionWithVideoMessage"], async (ctx) => {
     const userId = ctx.from.id
-    console.log("works");
     ctx.session.timeOut2 = false
     ctx.session.timeOut3 = false
 
@@ -275,8 +271,6 @@ bot.on("web_app_data", async ctx => {
     const userId = ctx.from.id
     const data = ctx.webAppData.data.json()
 
-    console.log(data);
-
     if (data.webAppType === 'choose-rate') {
         ctx.session.userRate = data.rateLevel
         ctx.session.timeOut4 = false
@@ -287,7 +281,6 @@ bot.on("web_app_data", async ctx => {
         ]).resize().oneTime();
 
         try {
-            console.log("works274");
             await ctx.replyWithHTML(messages.paymentLinkMessage.ru + paymentLinks[ctx.session.userRate], paymentLinkMessageKeyboard)
         } catch (error) {
             console.error(error);
@@ -368,7 +361,6 @@ bot.on("web_app_data", async ctx => {
             }, 90000000); 
         }
     } else if (data.webAppType === 'test-one-passed' || data.webAppType === 'test-one-skipped') {
-        console.log("works");
         if (data.webAppType === 'test-one-passed') {
             try {
                 await mainDb.updateUserTests(userId, "userFirstTestPassed", true, "userFirstTestSkipped", false, "userFirstTestAttempts", data.testAttempts)
@@ -422,7 +414,6 @@ bot.on("web_app_data", async ctx => {
             })
         }, 10000);
     } else if (data.webAppType === 'test-two-passed' || data.webAppType === 'test-two-skipped') {
-        console.log("works");
         if (data.webAppType === 'test-two-passed') {
             try {
                 await mainDb.updateUserTests(userId, "userSecondTestPassed", true, "userSecondTestSkipped", false, "userSecondTestAttempts", data.testAttempts)
@@ -480,10 +471,25 @@ bot.on("web_app_data", async ctx => {
                         ...keyboards.getAccessToChatKeyboard
                     })
                 } else {
-                    await ctx.replyWithDocument({source: './assets/images/formula2.png'}, {
-                        protect_content: true,
-                        ...keyboards.getAccessToChatKeyboard
-                    })
+
+                    const watchBonusVideoKeyboard = Markup.inlineKeyboard([
+                        [Markup.button.url('Смотреть видео🖥', `${webAppUrl}/amfjxu9HInd`)]
+                    ]);
+
+                    setTimeout(async () => {
+                        await ctx.replyWithPhoto({source: './assets/images/temp_pic.jpg'}, {
+                            protect_content: true,
+                            caption: messages.bonusLessonMessage.ru,
+                            ...watchBonusVideoKeyboard
+                        })
+                    }, 30000);
+                    setTimeout(async () => {
+                        await ctx.replyWithDocument({source: './assets/images/formula2.png'}, {
+                            protect_content: true,
+                            disable_notification: true,
+                            ...keyboards.getAccessToChatKeyboard
+                        })
+                    }, 30000);
                 }
             } catch (error) {
                 console.error(error);
@@ -566,11 +572,25 @@ bot.on("web_app_data", async ctx => {
             }
 
             setTimeout(async () => {
+
+                const watchBonusVideoKeyboard = Markup.inlineKeyboard([
+                    [Markup.button.url('Смотреть видео🖥', `${webAppUrl}/amfjxu9HInd`)]
+                ]);
+
                 try {
-                    await ctx.replyWithDocument({source: './assets/images/formula2.png'}, {
-                        protect_content: true,
-                        disable_notification: true
-                    })
+                    setTimeout(async () => {
+                        await ctx.replyWithPhoto({source: './assets/images/temp_pic.jpg'}, {
+                            protect_content: true,
+                            caption: messages.bonusLessonMessage.ru,
+                            ...watchBonusVideoKeyboard
+                        })
+                    }, 30000);
+                    setTimeout(async () => {
+                        await ctx.replyWithDocument({source: './assets/images/formula2.png'}, {
+                            protect_content: true,
+                            ...keyboards.getAccessToChatKeyboard
+                        })
+                    }, 30000);
                 } catch (error) {
                     console.error(error);
                     await ctx.replyWithHTML(messages.techProblemsMessage.ru)
@@ -618,11 +638,26 @@ bot.on("web_app_data", async ctx => {
             }
 
             setTimeout(async () => {
+
+                const watchBonusVideoKeyboard = Markup.inlineKeyboard([
+                    [Markup.button.url('Смотреть видео🖥', `${webAppUrl}/amfjxu9HInd`)]
+                ]);
+
                 try {
-                    await ctx.replyWithDocument({source: './assets/images/formula2.png'}, {
-                        disable_notification: true,
-                        protect_content: true
-                    })
+                    setTimeout(async () => {
+                        await ctx.replyWithPhoto({source: './assets/images/temp_pic.jpg'}, {
+                            protect_content: true,
+                            caption: messages.bonusLessonMessage.ru,
+                            ...watchBonusVideoKeyboard
+                        })
+                    }, 30000);
+                    setTimeout(async () => {
+                        await ctx.replyWithDocument({source: './assets/images/formula2.png'}, {
+                            protect_content: true,
+                            disable_notification: true,
+                            ...keyboards.getAccessToChatKeyboard
+                        })
+                    }, 30000);
                 } catch (error) {
                     console.error(error);
                     await ctx.replyWithHTML(messages.techProblemsMessage.ru)
@@ -691,7 +726,6 @@ bot.hears("ТЫ КТО чтоб так базарить?😡", async (ctx) => {
 
         setTimeout(async () => {
             if (ctx.session.timeOut6) {
-                console.log("works349");
                 await ctx.replyWithHTML(messages.paymentLinkMessage.ru + paymentLinks[ctx.session.userRate], paymentLinkMessageKeyboard)
             }
         }, TenMinTimer);
@@ -707,7 +741,6 @@ bot.action("authorInfoNoPicMessage-getPaymentLinkMessage", async (ctx) => {
     ]).resize().oneTime();
 
     try {
-        console.log("works366");
         await ctx.replyWithHTML(messages.paymentLinkMessage.ru + paymentLinks[ctx.session.userRate], paymentLinkMessageKeyboard)
     } catch (error) {
         console.error(error);
@@ -827,6 +860,17 @@ bot.action("basicUpgradeOfferMessage-basicUpgradeToProPaymentMessage", async (ct
         console.error(error);
         await ctx.replyWithHTML(messages.techProblemsMessage.ru)
     }
+})
+
+
+
+bot.command('message_start', async (ctx) => {
+    ctx.session.canStartMessage = true
+    await ctx.reply("Напишите сообщение для рассылки...")
+})
+
+bot.command('message_stop', async (ctx) => {
+    ctx.session.canStartMessage = false
 })
 
 
