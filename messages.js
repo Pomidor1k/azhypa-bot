@@ -35,7 +35,7 @@ const paymentIssuesMessage = {
 };
 
 const needHelpMessage = {
-  ru: "Пиши мне сразу в личку если че❗️ \n\n@azhypa\n\nТакже можешь зацти на мой лендинг, чтобы ознакомиться с моими работами\nhttps://azhypa.com/mediacenter/main/portfolio",
+  ru: "Пиши мне сразу в личку если че❗️ \n\n@azhypa\n\nМожешь также чекнуть моё портфолио с работами\n\nhttps://azhypa.com/mediacenter/main/portfolio",
 };
 
 const noPaymentFinalMessage = {
