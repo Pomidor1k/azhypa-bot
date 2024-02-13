@@ -6,7 +6,7 @@ const mainDb = require("./dataBases/firebase");
 const functions = require("./functions");
 
 const webAppUrl = "https://azhypa-web.onrender.com";
-
+//6664007271:AAGIYnU3pxOwTXgzuNylrqZRWRWw6dl39Ao
 const bot = new Telegraf("6664007271:AAGIYnU3pxOwTXgzuNylrqZRWRWw6dl39Ao");
 const localSession = new LocalSession({ database: "session_db.json" });
 bot.use(localSession.middleware());
@@ -120,9 +120,40 @@ bot.start(async (ctx) => {
   }, TenMinTimer);
 });
 
-const ignoreEvents = ["photo", "video", "voice", "document"];
+// const ignoreEvents = ["photo", "video", "voice", "document"];
 
-bot.on(ignoreEvents, async (ctx, next) => {});
+// bot.on(ignoreEvents, async (ctx, next) => {});
+
+const broadcastEvents = ["photo", "video", "voice", "document"];
+
+bot.on(broadcastEvents, async (ctx) => {
+  if (String(ctx.from.id) === '689818355' || String(ctx.from.id) === '514751965') {
+    ctx.session.broadcastMessageId = ctx.message.message_id
+    // Создаем inline клавиатуру
+    const inlineKeyboard = Markup.inlineKeyboard([
+      Markup.button.callback('начать рассылку', 'start_broadcast'),
+      Markup.button.callback('отмена', 'cancel')
+    ]);
+
+    // Пересылаем сообщение обратно пользователю с inline клавиатурой
+    await ctx.telegram.sendCopy(ctx.from.id, ctx.message, inlineKeyboard);
+  }
+});
+
+// Обработчики кнопок
+bot.action('start_broadcast', async (ctx) => {
+  let users = await mainDb.getAllUsers()
+  users.forEach(async user => {
+    await ctx.telegram.forwardMessage(user, ctx.chat.id, ctx.session.broadcastMessageId);
+  })
+  ctx.session.broadcastMessageId = ""
+});
+
+bot.action('cancel', async (ctx) => {
+  ctx.session.broadcastMessageId = ""
+  await ctx.deleteMessage()
+});
+
 
 bot.action("welcomeMessage-prePaymentVideoAdvMessage", async (ctx) => {
   const userId = ctx.from.id;
@@ -183,6 +214,22 @@ bot.action("welcomeMessage-prePaymentVideoAdvMessage", async (ctx) => {
     }
   }, TenMinTimer);
 });
+
+
+bot.command('admin', async (ctx) => {
+  if (String(ctx.from.id) === '689818355' || String(ctx.from.id) === '514751965') {
+    try {
+      let usersInfo = await mainDb.getAdminUsersInfo()
+      await ctx.replyWithHTML(`<b>Информация о пользователях</b>\n\n<b>Количество пользователей:</b>   ${usersInfo.usersAmount}\n\n<b>Количество оплат:</b>   ${usersInfo.paymentsAmount}\n\n<b>Пользователи BASIC:</b>   ${usersInfo.basicUsersAmount}\n\n<b>Пользователи ADVANCED:</b>   ${usersInfo.advancedUsersAmount}\n\n<b>Пользователи PRO:</b>   ${usersInfo.proUsersAmount}\n\n<b>Ожидают сессию:</b>   ${usersInfo.waitingForSessionAmount}
+      `)
+    } catch (error) {
+      await ctx.replyWithHTML("Ошибка получения данных")
+    }
+  }
+})
+
+
+
 
 bot.action(
   "prePaymentVideoAdvMessage-authorInfoWithPicMessage",
@@ -525,7 +572,7 @@ bot.on("web_app_data", async (ctx) => {
       );
     } catch (error) {
       console.error(error);
-      ctx.replyWithHTML(messages.techProblemsMessage.ru);
+      await ctx.replyWithHTML(messages.techProblemsMessage.ru);
     }
 
     setTimeout(async () => {
@@ -624,7 +671,7 @@ bot.on("web_app_data", async (ctx) => {
       );
     } catch (error) {
       console.error(error);
-      ctx.replyWithHTML(messages.techProblemsMessage.ru);
+      await ctx.replyWithHTML(messages.techProblemsMessage.ru);
     }
 
     const route = {
