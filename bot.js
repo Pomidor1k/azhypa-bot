@@ -7,7 +7,7 @@ const functions = require("./functions");
 
 const webAppUrl = "https://azhypa-web.onrender.com";
 //6664007271:AAGIYnU3pxOwTXgzuNylrqZRWRWw6dl39Ao
-const bot = new Telegraf("6664007271:AAGIYnU3pxOwTXgzuNylrqZRWRWw6dl39Ao");
+const bot = new Telegraf("5944241967:AAHU4-QYIzxLczDTiagj5RqcvIufP28KY7I");
 const localSession = new LocalSession({ database: "session_db.json" });
 bot.use(localSession.middleware());
 
@@ -41,6 +41,15 @@ bot.start(async (ctx) => {
   ctx.session.timeOut9 = true;
   ctx.session.canStartMessage = false;
 
+  const ratesDescriptionWithVideoMessageKeyboard = Markup.keyboard([
+    Markup.button.webApp(
+      "Выбрать тариф🎁",
+      `${webAppUrl}/choose-rate?userId=${userId}`
+    ),
+  ])
+    .resize()
+    .oneTime();
+
   try {
     await ctx.replyWithPhoto(
       { source: "./assets/images/welcome.jpg" },
@@ -68,30 +77,25 @@ bot.start(async (ctx) => {
   setTimeout(async () => {
     if (ctx.session.timeOut1) {
       try {
-        await ctx.replyWithHTML(
-          messages.prePaymentVideoAdvMessage.ru,
-          keyboards.prePaymentVideoAdvMessageKeyboard
-        );
+        await ctx.replyWithVideo({source: './assets/images/promo.mp4'}, {
+          protect_content: true,
+          parse_mode: 'HTML',
+          caption: messages.ratesDescriptionWithVideoMessage.ru,
+          ...ratesDescriptionWithVideoMessageKeyboard
+        })
       } catch (error) {
         console.error(error);
       }
     }
 
     //!убрать клавиатуру в другой файл
-    const ratesDescriptionWithVideoMessageKeyboard = Markup.keyboard([
-      Markup.button.webApp(
-        "Выбрать тариф🎁",
-        `${webAppUrl}/choose-rate?userId=${userId}`
-      ),
-    ])
-      .resize()
-      .oneTime();
+
 
     setTimeout(async () => {
       if (ctx.session.timeOut2) {
         try {
           await ctx.replyWithVideo(
-            { source: "./assets/images/adv_video.mp4" },
+            { source: "./assets/images/promo.mp4" },
             {
               protect_content: true,
               parse_mode: "HTML",
@@ -158,6 +162,16 @@ bot.action('cancel', async (ctx) => {
 bot.action("welcomeMessage-prePaymentVideoAdvMessage", async (ctx) => {
   const userId = ctx.from.id;
   ctx.session.timeOut1 = false;
+
+  const ratesDescriptionWithVideoMessageKeyboard = Markup.keyboard([
+    Markup.button.webApp(
+      "Выбрать тариф🎁",
+      `${webAppUrl}/choose-rate?userId=${userId}`
+    ),
+  ])
+  .resize()
+  .oneTime()
+
   try {
     ctx.editMessageReplyMarkup(null);
   } catch (error) {
@@ -165,29 +179,21 @@ bot.action("welcomeMessage-prePaymentVideoAdvMessage", async (ctx) => {
   }
 
   try {
-    await ctx.replyWithHTML(
-      messages.prePaymentVideoAdvMessage.ru,
-      keyboards.prePaymentVideoAdvMessageKeyboard
-    );
+    await ctx.replyWithVideo({source: './assets/images/promo.mp4'}, {
+      protect_content: true,
+      parse_mode: 'HTML',
+      caption: messages.ratesDescriptionWithVideoMessage.ru,
+      ...ratesDescriptionWithVideoMessageKeyboard
+    })
   } catch (error) {
     console.error(error);
   }
-
-  //!убрать клавиатуру в другой файл
-  const ratesDescriptionWithVideoMessageKeyboard = Markup.keyboard([
-    Markup.button.webApp(
-      "Выбрать тариф🎁",
-      `${webAppUrl}/choose-rate?userId=${userId}`
-    ),
-  ])
-    .resize()
-    .oneTime();
 
   setTimeout(async () => {
     if (ctx.session.timeOut2) {
       try {
         await ctx.replyWithVideo(
-          { source: "./assets/images/adv_video.mp4" },
+          { source: "./assets/images/promo.mp4" },
           {
             protect_content: true,
             parse_mode: "HTML",
@@ -272,7 +278,7 @@ bot.action(
           if (ctx.session.timeOut3) {
             try {
               await ctx.replyWithVideo(
-                { source: "./assets/images/adv_video.mp4" },
+                { source: "./assets/images/promo.mp4" },
                 {
                   protect_content: true,
                   parse_mode: "HTML",
@@ -328,7 +334,7 @@ bot.action(
 
     try {
       await ctx.replyWithVideo(
-        { source: "./assets/images/adv_video.mp4" },
+        { source: "./assets/images/promo.mp4" },
         {
           protect_content: true,
           parse_mode: "HTML",
