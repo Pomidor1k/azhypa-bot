@@ -7,7 +7,7 @@ const functions = require("./functions");
 
 const webAppUrl = "https://azhypa-web.onrender.com";
 //6664007271:AAGIYnU3pxOwTXgzuNylrqZRWRWw6dl39Ao
-const bot = new Telegraf("5944241967:AAHU4-QYIzxLczDTiagj5RqcvIufP28KY7I");
+const bot = new Telegraf("6664007271:AAGIYnU3pxOwTXgzuNylrqZRWRWw6dl39Ao");
 const localSession = new LocalSession({ database: "session_db.json" });
 bot.use(localSession.middleware());
 
